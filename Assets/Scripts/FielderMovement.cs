@@ -1,33 +1,30 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class FielderMovement : MonoBehaviour
 {
-    CharacterController controller;
-
     [SerializeField] private float rotationSpeed = 3;
     [SerializeField] private float movementSpeed = 1;
     [SerializeField] private Transform ballTransform;
     [SerializeField] private Transform ballCheckTransform;
+    [SerializeField] private LayerMask groundMask;
 
+    [Header("Animations")] [SerializeField]
+    private Transform highTester;
 
-    [Header("Animations")] 
-    [SerializeField] private Transform highTester;
     [SerializeField] private Transform jumpHighTester;
     [SerializeField] private Transform lowTester;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject ballAfterCollect;
     [SerializeField] private Transform catchTransform;
 
-
-    private Vector3 velocity;
+    CharacterController controller;
     private bool isGrounded;
-    private float groundCheckDistance = 0.2f;
-    [SerializeField] private LayerMask groundMask;
-    private float gravity = -9.8f;
     private Transform _transform;
 
+    #region Unity methods
 
     private void Awake()
     {
@@ -40,59 +37,15 @@ public class FielderMovement : MonoBehaviour
         ballAfterCollect.SetActive(false);
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Ball")
             return;
-        ballAfterCollect.transform.position = ballTransform.position;
-        ballAfterCollect.SetActive(true);
+        CopyBallRotationAndPosition();
         Destroy(ballTransform.gameObject);
+        ballAfterCollect.SetActive(true);
         SelectProperAnimation();
-       
-        
-    }
-
-    //we have 3 normal animations
-    //animation from above and animation picking from the ground
-    private void SelectProperAnimation()
-    {
-        float ballTime = .15f;
-
-        if (ballTransform.position.y > jumpHighTester.position.y)
-        {
-            animator.SetTrigger("highJump");
-            ballTime = .25f;
-        }
-        else
-        {
-            if (ballTransform.position.y > highTester.position.y)
-            {
-                animator.SetTrigger("jump");
-                ballTime = .2f;
-            }
-            else if (ballTransform.position.y < lowTester.position.y)
-            {
-                animator.SetTrigger("pickup");
-                ballTime = .2f;
-            }
-            else
-            {
-                animator.SetInteger("collect", Random.Range(1, 4));
-                Invoke(nameof(ResetCollector), .5f);
-            }    
-        }
-        Invoke(nameof(MoveBallToCatch),ballTime);
-    }
-
-    private void MoveBallToCatch()
-    {
-        ballAfterCollect.transform.SetParent(catchTransform);
-        ballAfterCollect.transform.localPosition = Vector3.zero;
-    }
-
-    private void ResetCollector()
-    {
-        animator.SetInteger("collect", 0);
     }
 
     private void FixedUpdate()
@@ -117,6 +70,61 @@ public class FielderMovement : MonoBehaviour
 
         SetAnimation();
     }
+
+    #endregion
+
+    #region private methods
+
+    private void CopyBallRotationAndPosition()
+    {
+        ballAfterCollect.transform.position = ballTransform.position;
+        ballAfterCollect.transform.rotation = ballTransform.rotation;
+    }
+
+    //we have 3 normal animations
+    //animation from above and animation picking from the ground
+    private void SelectProperAnimation()
+    {
+        float ballTime = .1f;
+
+        if (ballTransform.position.y > jumpHighTester.position.y)
+        {
+            animator.SetTrigger("highJump");
+            ballTime = .2f;
+        }
+        else
+        {
+            if (ballTransform.position.y > highTester.position.y)
+            {
+                animator.SetTrigger("jump");
+            }
+            else if (ballTransform.position.y < lowTester.position.y)
+            {
+                animator.SetTrigger("pickup");
+            }
+            else
+            {
+                animator.SetInteger("collect", Random.Range(1, 4));
+                Invoke(nameof(ResetCollector), .5f); //need to reset to 0 - do not replay same animation all over again
+            }
+        }
+
+
+        Invoke(nameof(MoveBallToCatch), ballTime); //if we dont want to use DoTween
+    }
+
+    private void MoveBallToCatch()
+    {
+        ballAfterCollect.transform.SetParent(catchTransform);
+        ballAfterCollect.transform.DOLocalMove(Vector3.zero, .1f).SetEase(Ease.Linear);
+        //ballAfterCollect.transform.localPosition = Vector3.zero; //use that if you dont want to use dotween
+    }
+
+    private void ResetCollector()
+    {
+        animator.SetInteger("collect", 0);
+    }
+
 
     private void SetAnimation()
     {
@@ -159,4 +167,6 @@ public class FielderMovement : MonoBehaviour
         _transform.rotation = Quaternion.Slerp(_transform.rotation, rotation, rotationSpeed * Time.deltaTime);
         _transform.localEulerAngles = new Vector3(0, _transform.localEulerAngles.y, 0);
     }
+
+    #endregion
 }
