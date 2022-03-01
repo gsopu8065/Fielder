@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 4c177e8939947844c8464d78cbe8bcbb
+guid: 9d8eb1d3f24ed3d46b9fd305aea4d265
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       1: 100000
-    second: D_Bat1
+    second: //RootNode
   - first:
       1: 100002
     second: D_Body
@@ -193,11 +193,8 @@ ModelImporter:
       1: 100124
     second: D_Transform_Jnt
   - first:
-      1: 100126
-    second: //RootNode
-  - first:
       4: 400000
-    second: D_Bat1
+    second: //RootNode
   - first:
       4: 400002
     second: D_Body
@@ -385,9 +382,6 @@ ModelImporter:
       4: 400124
     second: D_Transform_Jnt
   - first:
-      4: 400126
-    second: //RootNode
-  - first:
       43: 4300000
     second: D_Body
   - first:
@@ -421,49 +415,43 @@ ModelImporter:
       43: 4300020
     second: D_Gloves1
   - first:
-      43: 4300022
-    second: D_Bat1
-  - first:
       74: 7400000
-    second: Walk_NoTrans
+    second: Take 001
   - first:
       95: 9500000
     second: //RootNode
   - first:
       137: 13700000
-    second: D_Bat1
-  - first:
-      137: 13700002
     second: D_Body
   - first:
-      137: 13700004
+      137: 13700002
     second: D_Face1
   - first:
-      137: 13700006
+      137: 13700004
     second: D_Glasses
   - first:
-      137: 13700008
+      137: 13700006
     second: D_Gloves
   - first:
-      137: 13700010
+      137: 13700008
     second: D_Gloves1
   - first:
-      137: 13700012
+      137: 13700010
     second: D_Hand
   - first:
-      137: 13700014
+      137: 13700012
     second: D_Helmet
   - first:
-      137: 13700016
+      137: 13700014
     second: D_Pads
   - first:
-      137: 13700018
+      137: 13700016
     second: D_Pant
   - first:
-      137: 13700020
+      137: 13700018
     second: D_Shirt
   - first:
-      137: 13700022
+      137: 13700020
     second: D_Shoes
   externalObjects: {}
   materials:
@@ -495,18 +483,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walk_NoTrans
+      name: Take 001
       takeName: Take 001
       internalID: 0
-      firstFrame: 0
-      lastFrame: 182
+      firstFrame: 19.5
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: -0.75
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
