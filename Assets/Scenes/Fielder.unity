@@ -808,7 +808,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450544497}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.8981428, z: -0, w: -0.43970388}
   m_LocalPosition: {x: 6.06, y: 0, z: 6.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -820,7 +820,7 @@ Transform:
   - {fileID: 1097527984}
   m_Father: {fileID: 52992411}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 232.17, z: 0}
 --- !u!4 &1450315923
 Transform:
   m_ObjectHideFlags: 0
@@ -2814,7 +2814,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 07ebfc7257ea1f446a974bbdad047531, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3188,15 +3188,15 @@ MonoBehaviour:
   movementSpeed: 1.5
   ballTransform: {fileID: 7504744323596035786}
   ballCheckTransform: {fileID: 1013989688}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
   highTester: {fileID: 575997495}
   jumpHighTester: {fileID: 1097527984}
   lowTester: {fileID: 74245664}
   animator: {fileID: 1457848071}
   ballAfterCollect: {fileID: 107406744}
   catchTransform: {fileID: 172576232}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!136 &1457848075
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3207,7 +3207,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.75
+  m_Radius: 0.8
   m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: 1.25, z: 0}
@@ -3343,7 +3343,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7504744323596035798}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.506, y: 0.898, z: -8.508}
+  m_LocalPosition: {x: -2.506, y: 1.99, z: -8.508}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
