@@ -23,13 +23,11 @@ public class FielderMovement : MonoBehaviour
     CharacterController controller;
     private bool isGrounded;
     private Transform _transform;
-    private Rigidbody _rigidbody;
     #region Unity methods
 
     private void Awake()
     {
         _transform = transform; //cache transform for better performance!
-        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Start()
