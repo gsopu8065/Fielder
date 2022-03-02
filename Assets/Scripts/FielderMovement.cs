@@ -23,12 +23,13 @@ public class FielderMovement : MonoBehaviour
     CharacterController controller;
     private bool isGrounded;
     private Transform _transform;
-
+    private Rigidbody _rigidbody;
     #region Unity methods
 
     private void Awake()
     {
         _transform = transform; //cache transform for better performance!
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Start()
@@ -128,7 +129,7 @@ public class FielderMovement : MonoBehaviour
 
     private void SetAnimation()
     {
-        var clamp = Math.Clamp(controller.velocity.magnitude, 0f, 1f);
+        var clamp = Math.Clamp(controller.velocity.magnitude, 0f, 3f);
         animator.SetFloat("speed", clamp);
     }
 
@@ -158,6 +159,9 @@ public class FielderMovement : MonoBehaviour
         Vector3 ballPosNoY = new Vector3(ballTransform.position.x, _transform.position.y, ballTransform.position.z);
         Vector3 ballPosition = ballPosNoY - _transform.position;
         controller.Move(ballPosition * movementSpeed * Time.deltaTime);
+
+
+
     }
 
     private void RotateToBall()
