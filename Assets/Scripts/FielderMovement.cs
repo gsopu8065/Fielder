@@ -7,9 +7,12 @@ public class FielderMovement : MonoBehaviour
 {
     [SerializeField] private float rotationSpeed = 3;
     [SerializeField] private float movementSpeed = 1;
-    [SerializeField] private Transform ballTransform;
-    [SerializeField] private Transform ballCheckTransform;
     [SerializeField] private LayerMask groundMask;
+
+    [Header("Ball")]
+    private Transform ballTransform;
+    private Transform ballCheckTransform;
+    private GameObject ballAfterCollect;
 
     [Header("Animations")] [SerializeField]
     private Transform highTester;
@@ -17,7 +20,6 @@ public class FielderMovement : MonoBehaviour
     [SerializeField] private Transform jumpHighTester;
     [SerializeField] private Transform lowTester;
     [SerializeField] private Animator animator;
-    [SerializeField] private GameObject ballAfterCollect;
     [SerializeField] private Transform catchTransform;
 
     CharacterController controller;
@@ -33,13 +35,13 @@ public class FielderMovement : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<CharacterController>();
-        ballAfterCollect.SetActive(false);
+        //ballAfterCollect.SetActive(false);
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Ball")
+        if (other.tag != "Ball" || ballTransform == null)
             return;
         CopyBallRotationAndPosition();
         Destroy(ballTransform.gameObject);
@@ -49,6 +51,30 @@ public class FielderMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(ballTransform == null)
+        {
+            GameObject ballRootObject = GameObject.FindGameObjectWithTag("Ball");
+            if(ballRootObject != null)
+            {
+                Transform[] ts = ballRootObject.transform.GetComponentsInChildren<Transform>(true);
+                foreach (Transform t in ts) {
+                    if (t.gameObject.name == "Ball")
+                    {
+                        ballTransform = t;
+                    }
+                    if (t.gameObject.name == "BallGroundChecker")
+                    {
+                        ballCheckTransform = t;
+                    }
+                    if (t.gameObject.name == "BallAfterCatch")
+                    {
+                        ballAfterCollect = t.gameObject;
+                    }
+                }
+            }
+        }
+        
+
         if (ballTransform == null)
             return;
         isGrounded = CheckIfBallIsOnField();
